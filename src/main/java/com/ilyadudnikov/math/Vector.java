@@ -11,6 +11,10 @@ public class Vector extends ArrayList<Double> implements IVector{
         super(addition);
     }
 
+    public Vector(int initialCapacity) {
+        super(initialCapacity);
+    }
+
     @Override
     public IVector negate() {
         IVector result = new Vector();
@@ -40,6 +44,15 @@ public class Vector extends ArrayList<Double> implements IVector{
         }
         for (int i = 0; i < this.size(); i++) {
             result.add(this.get(i) - other.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public IVector mul(double scalar) {
+        IVector result = new Vector();
+        for (Double value : this) {
+            result.add(value * scalar);
         }
         return result;
     }

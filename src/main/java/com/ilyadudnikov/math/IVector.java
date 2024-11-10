@@ -6,4 +6,5 @@ public interface IVector extends List<Double> {
     IVector negate();
     IVector add(IVector other);
     IVector sub(IVector other);
+    IVector mul(double scalar);
 }
