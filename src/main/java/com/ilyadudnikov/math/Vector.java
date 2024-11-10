@@ -7,8 +7,8 @@ public class Vector extends ArrayList<Double> implements IVector{
         super();
     }
 
-    public Vector(IVector addition) {
-        super(addition);
+    public Vector(IVector vec) {
+        super(vec);
     }
 
     public Vector(int initialCapacity) {
