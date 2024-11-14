@@ -7,20 +7,20 @@ import java.util.List;
 
 public class LinfFunctional implements IFunctional {
     private List<IVector> points;
-    private List<Double> func_points;
+    private List<Double> funcPoints;
 
     public LinfFunctional() {}
 
-    public LinfFunctional(List<IVector> points, List<Double> func_points) {
+    public LinfFunctional(List<IVector> points, List<Double> funcPoints) {
         this.points = points;
-        this.func_points = func_points;
+        this.funcPoints = funcPoints;
     }
 
     @Override
     public double value(IFunction function) {
-        double sup = Math.abs(function.value(points.get(0)) - func_points.get(0));
+        double sup = Math.abs(function.value(points.get(0)) - funcPoints.get(0));
         for (int i = 1; i < points.size(); i++) {
-            double curSup = Math.abs(function.value(points.get(i)) - func_points.get(i));
+            double curSup = Math.abs(function.value(points.get(i)) - funcPoints.get(i));
             if (curSup > sup) {
                 sup = curSup;
             }

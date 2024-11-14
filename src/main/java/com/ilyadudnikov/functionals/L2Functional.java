@@ -11,12 +11,12 @@ import java.util.List;
 
 public class L2Functional implements IDifferentiableFunctional, ILeastSquaresFunctional {
     private List<IVector> points;
-    private List<Double> func_points;
+    private List<Double> funcPoints;
 
     public L2Functional() {}
-    public L2Functional(List<IVector> points, List<Double> func_points) {
+    public L2Functional(List<IVector> points, List<Double> funcPoints) {
         this.points = points;
-        this.func_points = func_points;
+        this.funcPoints = funcPoints;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class L2Functional implements IDifferentiableFunctional, ILeastSquaresFun
             if (addition.isEmpty()) {
                 return new Vector();
             }
-            double sub = function.value(points.get(i)) - func_points.get(i);
+            double sub = function.value(points.get(i)) - funcPoints.get(i);
             if (sub > 0) {
                 res = res.add(addition.mul(2).mul(Math.abs(sub)));
             } else {
@@ -50,7 +50,7 @@ public class L2Functional implements IDifferentiableFunctional, ILeastSquaresFun
     public IVector residual(IFunction function) {
         IVector res = new Vector();
         for (int i = 0; i < points.size(); i++) {
-            res.add(function.value(points.get(i)) - func_points.get(i));
+            res.add(function.value(points.get(i)) - funcPoints.get(i));
         }
         return res;
     }
@@ -73,7 +73,7 @@ public class L2Functional implements IDifferentiableFunctional, ILeastSquaresFun
     public double value(IFunction function) {
         double res = 0.0;
         for (int i = 0; i < points.size(); i++) {
-            res += (function.value(points.get(i)) - func_points.get(i)) * (function.value(points.get(i)) - func_points.get(i));
+            res += (function.value(points.get(i)) - funcPoints.get(i)) * (function.value(points.get(i)) - funcPoints.get(i));
         }
         return Math.sqrt(res);
     }

@@ -27,12 +27,12 @@ public class LinearMonteCarlo {
     private Optional<IVector> maximum = Optional.of(new Vector());
 
     private List<IVector> points = new ArrayList<>();
-    private List<Double> func_points = new ArrayList<>();
+    private List<Double> funcPoints = new ArrayList<>();
 
     {
         try {
-            Utils.readFileParams("linearParams.txt", initial, minimum.get(), maximum.get());
-            Utils.readFilePoints("linearPoints.txt", points, func_points);
+            Utils.readFileParams("linear_params.txt", initial, minimum.get(), maximum.get());
+            Utils.readFilePoints("linearPoints.txt", points, funcPoints);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -40,7 +40,7 @@ public class LinearMonteCarlo {
 
     @Test
     public void l1() {
-        IFunctional functional = new L1Functional(points, func_points);
+        IFunctional functional = new L1Functional(points, funcPoints);
         IVector res = optimizator.minimize(functional, function, initial, minimum, maximum);
 
         System.out.println();
@@ -51,7 +51,7 @@ public class LinearMonteCarlo {
 
     @Test
     public void l2() {
-        IFunctional functional = new L2Functional(points, func_points);
+        IFunctional functional = new L2Functional(points, funcPoints);
         IVector res = optimizator.minimize(functional, function, initial, minimum, maximum);
 
         System.out.println();
@@ -63,7 +63,7 @@ public class LinearMonteCarlo {
 
     @Test
     public void linf() {
-        IFunctional functional = new LinfFunctional(points, func_points);
+        IFunctional functional = new LinfFunctional(points, funcPoints);
         IVector res = optimizator.minimize(functional, function, initial, minimum, maximum);
 
         System.out.println();

@@ -24,11 +24,11 @@ public class Main {
         Optional<IVector> maximum = Optional.of(new Vector());
 
         List<IVector> points = new ArrayList<>();
-        List<Double> func_points = new ArrayList<>();
-        Utils.readFilePoints("pointsW.txt", points, func_points);
+        List<Double> funcPoints = new ArrayList<>();
+        Utils.readFilePoints("pointsW.txt", points, funcPoints);
         Utils.readFileParams("paramsW.txt", initial, minimum.get(), maximum.get());
 
-        IFunctional functional = new L2Functional(points, func_points);
+        IFunctional functional = new L2Functional(points, funcPoints);
 
         IParametricFunction funL = new LinearFunction();
         IParametricFunction funP = new PolynomialFunction();

@@ -9,13 +9,13 @@ import java.util.List;
 
 public class L1Functional implements IDifferentiableFunctional {
     private List<IVector> points;
-    private List<Double> func_points;
+    private List<Double> funcPoints;
 
     public L1Functional() {}
 
-    public L1Functional(List<IVector> points, List<Double> func_points) {
+    public L1Functional(List<IVector> points, List<Double> funcPoints) {
         this.points = points;
-        this.func_points = func_points;
+        this.funcPoints = funcPoints;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class L1Functional implements IDifferentiableFunctional {
             return new Vector();
         }
         IVector res = new Vector(addition);
-        if ((function.value(points.get(0)) - func_points.get(0)) < 0) {
+        if ((function.value(points.get(0)) - funcPoints.get(0)) < 0) {
             res = res.negate();
         }
 
@@ -39,7 +39,7 @@ public class L1Functional implements IDifferentiableFunctional {
 
 //            double a = function.value(points.get(i));
 
-            if ((function.value(points.get(i)) - func_points.get(i)) >= 0) {
+            if ((function.value(points.get(i)) - funcPoints.get(i)) >= 0) {
                 res = res.add(addition);
             } else {
                 res = res.sub(addition);
@@ -52,7 +52,7 @@ public class L1Functional implements IDifferentiableFunctional {
     public double value(IFunction function) {
         double res = 0.0;
         for (int i = 0; i < points.size(); i++) {
-            res += Math.abs(function.value(points.get(i)) - func_points.get(i));
+            res += Math.abs(function.value(points.get(i)) - funcPoints.get(i));
         }
         return res;
     }
