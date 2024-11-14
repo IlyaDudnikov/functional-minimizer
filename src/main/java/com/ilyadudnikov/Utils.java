@@ -3,13 +3,13 @@ package com.ilyadudnikov;
 import com.ilyadudnikov.math.IVector;
 import com.ilyadudnikov.math.Vector;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Utils {
-    public static void readFilePoints(String fileName, List<IVector> points, List<Double> funcPoints) {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+    public static void readFilePoints(String fileName, List<IVector> points, List<Double> funcPoints) throws FileNotFoundException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))) {
             int nPoints = Integer.parseInt(br.readLine().trim());
 
             for (int i = 0; i < nPoints; i++) {
@@ -24,11 +24,12 @@ public class Utils {
         } catch (Exception e) {
             System.out.println("The file could not be read:");
             System.out.println(e.getMessage());
+            throw new FileNotFoundException(e.getMessage());
         }
     }
 
-    public static void readFileParams(String fileName, IVector initial, IVector minimum, IVector maximum) {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+    public static void readFileParams(String fileName, IVector initial, IVector minimum, IVector maximum) throws FileNotFoundException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))) {
 
             String[] str = br.readLine().split(" ");
             for (String s : str) {
@@ -48,6 +49,7 @@ public class Utils {
         } catch (Exception e) {
             System.out.println("The file could not be read:");
             System.out.println(e.getMessage());
+            throw new FileNotFoundException(e.getMessage());
         }
     }
 }
