@@ -21,6 +21,9 @@ public class MinimizerGaussNewton implements IOptimizator {
             a.clear();
         }
         A.clear();
+        ///////////////////////////////////
+//        b.clear();
+        ///////////////////////////////////
 
         int nParams = jac.get(0).size();
         for (int i = 0; i < nParams; i++) {

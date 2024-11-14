@@ -28,7 +28,7 @@ public class LinearFunction implements IParametricFunction, IDifferentiableFunct
         for (int i = 0; i < point.size(); i++) {
             res += parameters.get(i) * point.get(i);
         }
-        res += parameters.get(point.size() - 1);
+        res += parameters.get(point.size());
         return res;
     }
 
