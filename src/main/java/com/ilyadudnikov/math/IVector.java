@@ -7,4 +7,5 @@ public interface IVector extends List<Double> {
     IVector add(IVector other);
     IVector sub(IVector other);
     IVector mul(double scalar);
+    IVector abs();
 }

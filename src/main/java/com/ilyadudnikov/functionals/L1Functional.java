@@ -8,15 +8,48 @@ import com.ilyadudnikov.math.Vector;
 import java.util.List;
 
 public class L1Functional implements IDifferentiableFunctional {
-    private List<IVector> points;
-    private List<Double> funcPoints;
+    private final List<IVector> points;
+    private final List<Double> funcPoints;
 
-    public L1Functional() {}
+//    public L1Functional() {}
 
     public L1Functional(List<IVector> points, List<Double> funcPoints) {
+        if (points.size() != funcPoints.size()) {
+            throw new IllegalArgumentException("Points and funcPoints must have the same length");
+        }
         this.points = points;
         this.funcPoints = funcPoints;
     }
+
+//    @Override
+//    public IVector gradient(IFunction function) {
+//        IDifferentiableFunction differentiableFunction = (IDifferentiableFunction) function;
+//
+//        IVector addition = differentiableFunction.gradient(points.get(0));
+//        if (addition.isEmpty()) {
+//            return new Vector();
+//        }
+//        IVector res = new Vector(addition);
+//        if ((function.value(points.get(0)) - funcPoints.get(0)) < 0) {
+//            res = res.negate();
+//        }
+//
+//        for (int i = 1; i < points.size(); i++) {
+//            addition = differentiableFunction.gradient(points.get(i));
+//            if (addition.isEmpty()) {
+//                return new Vector();
+//            }
+//
+////            double a = function.value(points.get(i));
+//
+//            if ((function.value(points.get(i)) - funcPoints.get(i)) >= 0) {
+//                res = res.add(addition);
+//            } else {
+//                res = res.sub(addition);
+//            }
+//        }
+//        return res;
+//    }
 
     @Override
     public IVector gradient(IFunction function) {
@@ -26,24 +59,12 @@ public class L1Functional implements IDifferentiableFunctional {
         if (addition.isEmpty()) {
             return new Vector();
         }
-        IVector res = new Vector(addition);
-        if ((function.value(points.get(0)) - funcPoints.get(0)) < 0) {
-            res = res.negate();
-        }
+
+        IVector res = new Vector(addition.abs());
 
         for (int i = 1; i < points.size(); i++) {
             addition = differentiableFunction.gradient(points.get(i));
-            if (addition.isEmpty()) {
-                return new Vector();
-            }
-
-//            double a = function.value(points.get(i));
-
-            if ((function.value(points.get(i)) - funcPoints.get(i)) >= 0) {
-                res = res.add(addition);
-            } else {
-                res = res.sub(addition);
-            }
+            res.add(addition.abs());
         }
         return res;
     }
