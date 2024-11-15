@@ -30,8 +30,14 @@ public class Spline implements IParametricFunction, IDifferentiableFunction {
 
     @Override
     public double value(IVector point) {
-        int intervalIndex = findInterval(point.get(0));
-        List<Double> basisFunctions = calculateBasisFunctions(point.get(0), nodes.get(intervalIndex), nodes.get(intervalIndex + 1));
+        double x = point.get(0);
+
+        if (x < nodes.get(0) || x > nodes.get(nodes.size() - 1)) {
+            throw new IndexOutOfBoundsException("Index: Point is outside of the defined intervals");
+        }
+
+        int intervalIndex = findInterval(x);
+        List<Double> basisFunctions = calculateBasisFunctions(x, nodes.get(intervalIndex), nodes.get(intervalIndex + 1));
 
         double result = 0;
         for (int i = 2 * intervalIndex, j = 0; j < 4; i++, j++) {
