@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Spline implements IParametricFunction, IDifferentiableFunction {
-    private IVector parameters;
-    private List<Double> x = new ArrayList<>(Arrays.asList(0.0, 15.0));
-    private List<Double> q;
+
+    private List<Double> nodes = new ArrayList<>(Arrays.asList(0.0, 15.0));
+    private List<Double> coefficients;
 
     public Spline() {}
 
@@ -20,65 +20,52 @@ public class Spline implements IParametricFunction, IDifferentiableFunction {
 
     @Override
     public IVector gradient(IVector point) {
-        int iCur = 0;
-        double p = point.get(0);
+        int intervalIndex = findInterval(point.get(0));
+        List<Double> basisFunctions = calculateBasisFunctions(point.get(0), nodes.get(intervalIndex), nodes.get(intervalIndex + 1));
 
-        while (p > x.get(iCur + 1)) {
-            iCur++;
-        }
-
-        IVector res = new Vector();
-        List<Double> basis = basis(p, x.get(iCur), x.get(iCur + 1));
-        res.addAll(basis);
-
-        return res;
+        IVector result = new Vector();
+        result.addAll(basisFunctions);
+        return result;
     }
 
     @Override
     public double value(IVector point) {
-        int iCur = 0;
-        double res = 0;
-        double p = point.get(0);
-        while (p > x.get(iCur + 1)) {
-            iCur++;
+        int intervalIndex = findInterval(point.get(0));
+        List<Double> basisFunctions = calculateBasisFunctions(point.get(0), nodes.get(intervalIndex), nodes.get(intervalIndex + 1));
+
+        double result = 0;
+        for (int i = 2 * intervalIndex, j = 0; j < 4; i++, j++) {
+            result += coefficients.get(i) * basisFunctions.get(j);
         }
-        List<Double> basis = basis(p, x.get(iCur), x.get(iCur + 1));
-        for (int i = 2 * iCur, j = 0; j < 4; i++, j++) {
-            res += q.get(i) * basis.get(j);
-        }
-        return res;
+        return result;
     }
 
     @Override
     public IFunction bind(IVector parameters) {
-        this.parameters = parameters;
-        q = new ArrayList<>();
-        q.addAll(parameters);
+        coefficients = new ArrayList<>();
+        coefficients.addAll(parameters);
         return this;
     }
 
-    private List<Double> basis(double x, double x0, double x1) {
-        List<Double> basis = new ArrayList<>();
-        double hk = x1 - x0;
-        double ksi = (x - x0) / hk;
-
-        basis.add(1 - 3 * ksi * ksi + 2 * ksi * ksi * ksi); //x
-        basis.add(hk*(ksi - 2 * ksi * ksi + ksi * ksi * ksi)); //x'
-
-        basis.add(3 * ksi * ksi - 2 * ksi * ksi * ksi); //x+1
-        basis.add(hk*(-ksi * ksi + ksi * ksi * ksi)); //x+1'
-        return basis;
+    private int findInterval(double point) {
+        int index = 0;
+        while (point > nodes.get(index + 1)) {
+            index++;
+        }
+        return index;
     }
 
-    private List<Double> basis_diff(double x, double x0, double x1) {
-        List<Double> basis = new ArrayList<>();
-        double hk = x1 - x0;
-        double ksi = (x - x0) / hk;
+    private List<Double> calculateBasisFunctions(double x, double x0, double x1) {
+        List<Double> basisFunctions = new ArrayList<>();
+        double h = x1 - x0;
+        double ksi = (x - x0) / h;
 
-        basis.add(6 * ksi * (ksi - 1) / hk); //x
-        basis.add(1 - 4 * ksi + 3 * ksi * ksi); //x'
-        basis.add(6 * ksi * (1 - ksi) / hk); //x+1
-        basis.add(ksi * (-2 + 3 * ksi)); //x+1'
-        return basis;
+        basisFunctions.add(1 - 3 * ksi * ksi + 2 * ksi * ksi * ksi);
+        basisFunctions.add(h * (ksi - 2 * ksi * ksi + ksi * ksi * ksi));
+        basisFunctions.add(3 * ksi * ksi - 2 * ksi * ksi * ksi);
+        basisFunctions.add(h * (-ksi * ksi + ksi * ksi * ksi));
+
+        return basisFunctions;
     }
+
 }

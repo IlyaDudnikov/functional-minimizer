@@ -1,6 +1,7 @@
 package com.ilyadudnikov.math;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Vector extends ArrayList<Double> implements IVector{
     public Vector() {
@@ -57,12 +58,25 @@ public class Vector extends ArrayList<Double> implements IVector{
         return result;
     }
 
-//    @Override
-//    public IVector abs() {
-//        IVector result = new Vector();
-//        for (Double value : this) {
-//            result.add(Math.abs(value));
-//        }
-//        return result;
-//    }
+    @Override
+    public IVector abs() {
+        IVector result = new Vector();
+        for (Double value : this) {
+            result.add(Math.abs(value));
+        }
+        return result;
+    }
+
+    public void setSize(int size) {
+        while (this.size() < size) {
+            this.add(0.0);
+        }
+        while (this.size() > size) {
+            this.remove(this.size() - 1);
+        }
+    }
+
+    public void fill(double value) {
+        Collections.fill(this, value);
+    }
 }
