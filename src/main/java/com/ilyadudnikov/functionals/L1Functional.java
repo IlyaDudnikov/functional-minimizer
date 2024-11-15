@@ -55,16 +55,21 @@ public class L1Functional implements IDifferentiableFunctional {
     public IVector gradient(IFunction function) {
         IDifferentiableFunction differentiableFunction = (IDifferentiableFunction) function;
 
-        IVector addition = differentiableFunction.gradient(points.get(0));
-        if (addition.isEmpty()) {
+        IVector functionGrad = differentiableFunction.gradient(points.get(0));
+        if (functionGrad.isEmpty()) {
             return new Vector();
         }
 
-        IVector res = new Vector(addition.abs());
+        double sub = function.value(points.get(0)) - funcPoints.get(0);
+        double sign = Math.signum(sub);
+        IVector addition = functionGrad.mul(sign);
+        IVector res = new Vector(addition);
 
         for (int i = 1; i < points.size(); i++) {
-            addition = differentiableFunction.gradient(points.get(i));
-            res.add(addition.abs());
+            sub = function.value(points.get(i)) - funcPoints.get(i);
+            sign = Math.signum(sub);
+            addition = functionGrad.mul(sign);
+            res = res.add(addition);
         }
         return res;
     }
