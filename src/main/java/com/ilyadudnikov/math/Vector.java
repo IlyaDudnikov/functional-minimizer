@@ -58,14 +58,14 @@ public class Vector extends ArrayList<Double> implements IVector{
         return result;
     }
 
-    @Override
-    public IVector abs() {
-        IVector result = new Vector();
-        for (Double value : this) {
-            result.add(Math.abs(value));
-        }
-        return result;
-    }
+//    @Override
+//    public IVector abs() {
+//        IVector result = new Vector();
+//        for (Double value : this) {
+//            result.add(Math.abs(value));
+//        }
+//        return result;
+//    }
 
     public void setSize(int size) {
         while (this.size() < size) {
