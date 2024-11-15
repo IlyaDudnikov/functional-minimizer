@@ -37,17 +37,17 @@ public class Vector extends ArrayList<Double> implements IVector{
         return result;
     }
 
-    @Override
-    public IVector sub(IVector other) {
-        IVector result = new Vector();
-        if (this.size() != other.size()) {
-            throw new IllegalArgumentException("Vectors must be the same size");
-        }
-        for (int i = 0; i < this.size(); i++) {
-            result.add(this.get(i) - other.get(i));
-        }
-        return result;
-    }
+//    @Override
+//    public IVector sub(IVector other) {
+//        IVector result = new Vector();
+//        if (this.size() != other.size()) {
+//            throw new IllegalArgumentException("Vectors must be the same size");
+//        }
+//        for (int i = 0; i < this.size(); i++) {
+//            result.add(this.get(i) - other.get(i));
+//        }
+//        return result;
+//    }
 
     @Override
     public IVector mul(double scalar) {
@@ -58,14 +58,14 @@ public class Vector extends ArrayList<Double> implements IVector{
         return result;
     }
 
-    @Override
-    public IVector abs() {
-        IVector result = new Vector();
-        for (Double value : this) {
-            result.add(Math.abs(value));
-        }
-        return result;
-    }
+//    @Override
+//    public IVector abs() {
+//        IVector result = new Vector();
+//        for (Double value : this) {
+//            result.add(Math.abs(value));
+//        }
+//        return result;
+//    }
 
     public void setSize(int size) {
         while (this.size() < size) {
