@@ -24,10 +24,10 @@ public class LinearFunction implements IParametricFunction, IDifferentiableFunct
     @Override
     public double value(IVector point) {
         double res = 0;
-        for (int i = 0; i < point.size(); i++) {
+        for (int i = 0; i < parameters.size() - 1; i++) {
             res += parameters.get(i) * point.get(i);
         }
-        res += parameters.get(point.size());
+        res += parameters.get(parameters.size() - 1);
         return res;
     }
 
