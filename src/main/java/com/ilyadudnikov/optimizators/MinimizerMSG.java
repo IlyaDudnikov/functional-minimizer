@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public class MinimizerMSG implements IOptimizator {
     private int maxIter = 100_000;
-    private double eps = 1e-1;
-    private double epsSmall = 1e-3, delta = 1e-9;
+    private double eps = 1e-3;
+    private double epsSmall = 1e-5, delta = 1e-9;
 
     @Override
     public IVector minimize(IFunctional _objective, IParametricFunction function, IVector initialParameters, Optional<IVector> minimumParameters, Optional<IVector> maximumParameters) {
@@ -22,23 +22,23 @@ public class MinimizerMSG implements IOptimizator {
 
         IVector param = new Vector();
         IVector nextParam = new Vector();
-        IVector minParam = new Vector();
+//        IVector minParam = new Vector();
         param.addAll(initialParameters);
-        minParam.addAll(initialParameters);
+//        minParam.addAll(initialParameters);
 
-        Sk = objective.gradient(function.bind(param));
-        gradk = Sk;
+        gradk = objective.gradient(function.bind(param));
+        Sk = gradk.negate();
         nextFk = objective.value(function.bind(param));
         fk = 0;
 
         int iter = 0;
         for (int i = 0; i < maxIter && norm(Sk) >= eps && Math.abs(nextFk - fk) >= eps; i++) {
             fk = nextFk;
-            System.out.print(iter + ": ");
-            for (Double s : param) {
-                System.out.print(" " + s);
-            }
-            System.out.print("\t f=" + objective.value(function.bind(param)) + "\n");
+//            System.out.print(iter + ": ");
+//            for (Double s : param) {
+//                System.out.print(" " + s);
+//            }
+//            System.out.print("\t f=" + objective.value(function.bind(param)) + "\n");
 
             IVector tmpParams1 = new Vector();
             IVector tmpParams2 = new Vector();
@@ -63,7 +63,7 @@ public class MinimizerMSG implements IOptimizator {
             param = param.add(Sk.mul(lyamk));
             nextGradk = objective.gradient(function.bind(param));
             nextFk = objective.value(function.bind(param));
-            wk = -(norm(nextGradk) * norm(nextGradk)) / (norm(gradk) * norm(gradk));
+            wk = (norm(nextGradk) * norm(nextGradk)) / (norm(gradk) * norm(gradk));
 
             nextSk = nextGradk.negate().add(Sk.mul(wk));
             Sk = nextSk;
@@ -71,10 +71,10 @@ public class MinimizerMSG implements IOptimizator {
             iter++;
         }
 
-        for (Double a : param) {
-            System.out.print(" " + a);
-        }
-        System.out.print("\t f=" + objective.value(function.bind(param)));
+//        for (Double a : param) {
+//            System.out.print(" " + a);
+//        }
+        System.out.println("f = " + objective.value(function.bind(param)));
         return param;
     }
 
@@ -83,6 +83,7 @@ public class MinimizerMSG implements IOptimizator {
         for (Double a : vector) {
             res += a * a;
         }
-        return Math.sqrt(res);
+        return res;
+//        return Math.sqrt(res);
     }
 }

@@ -27,10 +27,10 @@ public class MinimizerMonteCarlo implements IOptimizator {
         double f = currentMin;
         Random rand  = new Random();
 
-        for (Double a : param) {
-            System.out.print(" " + a);
-        }
-        System.out.print("\t f=" + currentMin);
+//        for (Double a : param) {
+//            System.out.print(" " + a);
+//        }
+//        System.out.print("\t f=" + currentMin);
 
         for (int i = 1; i <= maxIter && Math.abs(f) >= eps; i++) {
             t = t / i;
@@ -46,17 +46,18 @@ public class MinimizerMonteCarlo implements IOptimizator {
                 }
                 iMin = i;
             }
-            System.out.println();
-            System.out.print(i + ":");
-
-            for (Double a : param) {
-                System.out.print(" " + a);
-            }
-            System.out.print("\t f=" + f);
+//            System.out.println();
+//            System.out.print(i + ":");
+//
+//            for (Double a : param) {
+//                System.out.print(" " + a);
+//            }
+//            System.out.print("\t f=" + f);
         }
-        System.out.println("\n" + iMin);
+//        System.out.println("\n" + iMin);
 
-        System.out.println("\n" + currentMin);
+//        System.out.println("\n" + currentMin);
+        System.out.println("f = " + currentMin);
 
         return minParam;
     }

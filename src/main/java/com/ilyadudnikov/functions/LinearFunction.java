@@ -5,6 +5,9 @@ import com.ilyadudnikov.math.Vector;
 
 public class LinearFunction implements IParametricFunction, IDifferentiableFunction {
     private IVector parameters;
+
+    public LinearFunction() {}
+
     public LinearFunction(IVector parameters) {
         bind(parameters);
     }
@@ -15,8 +18,8 @@ public class LinearFunction implements IParametricFunction, IDifferentiableFunct
             return new Vector();
         }
         IVector gradient = new Vector();
-        gradient.addAll(parameters);
-        gradient.remove(gradient.size() - 1);
+        gradient.addAll(point);
+        gradient.add(1.0);
         return gradient;
     }
 

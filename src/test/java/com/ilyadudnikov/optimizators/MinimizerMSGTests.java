@@ -16,17 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MinimizerMonteCarloTests {
-    private final IOptimizator optimizator = new MinimizerMonteCarlo();;
+public class MinimizerMSGTests {
+    private IOptimizator optimizator = new MinimizerMSG();;
     private IParametricFunction function;
     private IFunctional functional;
 
-    private final IVector initial = new Vector();
-    private final Optional<IVector> minimum = Optional.of(new Vector());
-    private final Optional<IVector> maximum = Optional.of(new Vector());
+    private IVector initial = new Vector();
+    private Optional<IVector> minimum = Optional.of(new Vector());
+    private Optional<IVector> maximum = Optional.of(new Vector());
 
-    private final List<IVector> points = new ArrayList<>();
-    private final List<Double> funcPoints = new ArrayList<>();
+    private List<IVector> points = new ArrayList<>();
+    private List<Double> funcPoints = new ArrayList<>();
 
     @Test
     void linearL1() {

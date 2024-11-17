@@ -66,6 +66,7 @@ public class L1Functional implements IDifferentiableFunctional {
         IVector res = new Vector(addition);
 
         for (int i = 1; i < points.size(); i++) {
+            functionGrad = differentiableFunction.gradient(points.get(i));
             sub = function.value(points.get(i)) - funcPoints.get(i);
             sign = Math.signum(sub);
             addition = functionGrad.mul(sign);

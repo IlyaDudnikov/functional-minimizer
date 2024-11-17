@@ -10,7 +10,7 @@ import com.ilyadudnikov.functions.LinearFunction;
 import com.ilyadudnikov.math.IVector;
 import com.ilyadudnikov.math.Vector;
 import com.ilyadudnikov.optimizators.IOptimizator;
-import com.ilyadudnikov.optimizators.MinimizerMonteCarlo2;
+import com.ilyadudnikov.optimizators.MinimizerMonteCarlo;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LinearMonteCarlo {
-    private IOptimizator optimizator = new MinimizerMonteCarlo2();
+    private IOptimizator optimizator = new MinimizerMonteCarlo();
     private IParametricFunction function = new LinearFunction();
 
     private IVector initial = new Vector();
