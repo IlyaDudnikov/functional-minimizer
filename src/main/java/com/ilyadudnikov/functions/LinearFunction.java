@@ -12,14 +12,25 @@ public class LinearFunction implements IParametricFunction, IDifferentiableFunct
         bind(parameters);
     }
 
+//    @Override
+//    public IVector gradient(IVector point) {
+//        if (parameters == null || parameters.size() == 1) {
+//            return new Vector();
+//        }
+//        IVector gradient = new Vector();
+//        gradient.addAll(parameters);
+//        gradient.remove(gradient.size() - 1);
+//        return gradient;
+//    }
+
     @Override
     public IVector gradient(IVector point) {
-        if (parameters == null || parameters.size() == 1) {
+        if (parameters == null) {
             return new Vector();
         }
         IVector gradient = new Vector();
-        gradient.addAll(parameters);
-        gradient.remove(gradient.size() - 1);
+        gradient.addAll(point);
+        gradient.add(1.0);
         return gradient;
     }
 
