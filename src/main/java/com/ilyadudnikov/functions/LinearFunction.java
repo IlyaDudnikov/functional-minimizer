@@ -6,6 +6,8 @@ import com.ilyadudnikov.math.Vector;
 public class LinearFunction implements IParametricFunction, IDifferentiableFunction {
     private IVector parameters;
 
+    public LinearFunction() {}
+
     public LinearFunction(IVector parameters) {
         bind(parameters);
     }
