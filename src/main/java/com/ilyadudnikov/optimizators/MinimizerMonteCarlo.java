@@ -9,7 +9,7 @@ import com.ilyadudnikov.math.Vector;
 import java.util.Optional;
 import java.util.Random;
 
-public class MinimizerMonteCarlo2 implements IOptimizator {
+public class MinimizerMonteCarlo implements IOptimizator {
     private int maxIter = 100_000;
     double eps = 1e-1;
 
